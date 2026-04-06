@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const mongoose = require('mongoose');
 const Content  = require('./models/Content');
 const User     = require('./models/User');
@@ -81,7 +82,14 @@ const contents = [
 async function seed() {
   try {
     console.log('🌱 Starting database seeding...');
-    await mongoose.connect(process.env.MONGO_URI);
+    let mongoUri = process.env.MONGO_URI;
+    if (!mongoUri) {
+      const { MongoMemoryServer } = require('mongodb-memory-server');
+      const mongoServer = await MongoMemoryServer.create();
+      mongoUri = mongoServer.getUri();
+      console.log('✅  Using in-memory MongoDB instance for seeding');
+    }
+    await mongoose.connect(mongoUri);
     console.log('✅  MongoDB connected for seeding');
 
     await Content.deleteMany({});

@@ -70,14 +70,24 @@ app.use((err, _req, res, _next) => {
 });
 
 // ── Database & Start ──────────────────────────────────────────
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
+async function startServer() {
+  try {
+    let mongoUri = process.env.MONGO_URI;
+    if (!mongoUri) {
+      const { MongoMemoryServer } = require('mongodb-memory-server');
+      const mongoServer = await MongoMemoryServer.create();
+      mongoUri = mongoServer.getUri();
+      console.log('✅  Using in-memory MongoDB instance');
+    }
+
+    await mongoose.connect(mongoUri);
     console.log('✅  MongoDB connected');
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => console.log(`🚀  Server running on port ${PORT}`));
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error('❌  MongoDB connection error:', err.message);
     process.exit(1);
-  });
+  }
+}
+
+startServer();
