@@ -9,10 +9,38 @@ const contentSchema = new mongoose.Schema(
     releaseYear: { type: Number },
     rating:      { type: String, default: 'PG-13' },  // e.g. PG, 16+, R
     matchScore:  { type: Number, min: 0, max: 100, default: 80 },
-    poster:      { type: String, default: '' },   // URL
-    backdrop:    { type: String, default: '' },   // URL
-    trailer:     { type: String, default: '' },   // URL
-    videoUrl:    { type: String, default: '' },   // URL (production: CDN link)
+    poster:      { 
+      type: String, 
+      default: '', 
+      validate: {
+        validator: (v) => !v || /^https?:\/\/.+/.test(v),
+        message: 'Poster must be a valid HTTP(S) URL'
+      }
+    },   // URL
+    backdrop:    { 
+      type: String, 
+      default: '', 
+      validate: {
+        validator: (v) => !v || /^https?:\/\/.+/.test(v),
+        message: 'Backdrop must be a valid HTTP(S) URL'
+      }
+    },   // URL
+    trailer:     { 
+      type: String, 
+      default: '', 
+      validate: {
+        validator: (v) => !v || /^https?:\/\/.+/.test(v),
+        message: 'Trailer must be a valid HTTP(S) URL'
+      }
+    },   // URL
+    videoUrl:    { 
+      type: String, 
+      default: '', 
+      validate: {
+        validator: (v) => !v || /^https?:\/\/.+/.test(v),
+        message: 'Video URL must be a valid HTTP(S) URL'
+      }
+    },   // URL (production: CDN link)
     seasons:     { type: Number, default: 1 },    // for series
     duration:    { type: Number, default: 90 },   // minutes (for movies)
     cast:        [{ type: String }],

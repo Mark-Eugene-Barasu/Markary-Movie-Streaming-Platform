@@ -80,8 +80,9 @@ const contents = [
 
 async function seed() {
   try {
+    console.log('🌱 Starting database seeding...');
     await mongoose.connect(process.env.MONGO_URI);
-    console.log('✅  MongoDB connected');
+    console.log('✅  MongoDB connected for seeding');
 
     await Content.deleteMany({});
     const inserted = await Content.insertMany(contents);
@@ -98,7 +99,5 @@ async function seed() {
     process.exit(1);
   }
 }
-
-seed();
 
 seed();

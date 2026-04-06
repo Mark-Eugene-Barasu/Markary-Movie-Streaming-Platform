@@ -36,8 +36,16 @@ app.use(rateLimit({
   message: { error: 'Too many requests. Please try again later.' },
 }));
 
+// Auth rate limiter – 5 requests / 15 min per IP for auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { error: 'Too many authentication attempts. Please try again later.' },
+  skipSuccessfulRequests: true,
+});
+
 // ── Routes ────────────────────────────────────────────────────
-app.use('/api/auth',    authRoutes);
+app.use('/api/auth',    authLimiter, authRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/user',    userRoutes);
 
@@ -55,8 +63,9 @@ if (process.env.NODE_ENV === 'production') {
 // ── Global Error Handler ──────────────────────────────────────
 app.use((err, _req, res, _next) => {
   console.error(err.stack);
+  const isDev = process.env.NODE_ENV === 'development';
   res.status(err.status || 500).json({
-    error: err.message || 'Internal Server Error',
+    error: isDev ? err.message : 'An error occurred. Please try again.',
   });
 });
 

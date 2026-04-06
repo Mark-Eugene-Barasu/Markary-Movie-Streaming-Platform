@@ -63,6 +63,8 @@ exports.updateProgress = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.contentId)) {
       return res.status(400).json({ error: 'Invalid content ID.' });
     }
+    const content = await Content.findById(req.params.contentId);
+    if (!content) return res.status(404).json({ error: 'Content not found.' });
     const { progress } = req.body;
     if (typeof progress !== 'number' || progress < 0 || progress > 100000) { // reasonable max
       return res.status(400).json({ error: 'Invalid progress value.' });
