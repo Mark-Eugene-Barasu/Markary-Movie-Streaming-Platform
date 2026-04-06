@@ -1,7 +1,7 @@
 {
   "name": "markary",
   "version": "1.0.0",
-  "description": "Markary streaming platform – monorepo root",
+  "description": "Markary streaming platform  monorepo root",
   "scripts": {
     "install:all": "npm install --prefix backend && npm install --prefix frontend",
     "dev:backend":  "npm run dev  --prefix backend",
