@@ -1,0 +1,65 @@
+.loader {
+  height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 24px;
+}
+.loaderLogo {
+  font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900;
+  background: linear-gradient(135deg, #f0d080, #c9a84c);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 4px;
+}
+.loaderBar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); border-radius: 1px; overflow: hidden; }
+.loaderFill { height: 100%; background: linear-gradient(to right, #7c3aed, #c9a84c); animation: load 1.4s ease-in-out infinite; }
+@keyframes load { 0%{width:0%} 100%{width:100%} }
+
+.genreBar {
+  padding: 0 56px 20px;
+  display: flex; gap: 10px; overflow-x: auto;
+}
+.genreBar::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0; padding: 7px 18px; border-radius: 20px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: #7a748a; transition: all 0.2s; font-family: 'Outfit', sans-serif;
+}
+.pill:hover { background: rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.4); color: #e9d5ff; }
+.pillActive { background: rgba(124,58,237,0.2); border-color: rgba(124,58,237,0.5); color: #e9d5ff; }
+
+.rows { padding: 0 56px; }
+
+.banner {
+  margin: 0 56px 48px;
+  border-radius: 16px; overflow: hidden; position: relative;
+  height: 180px; cursor: pointer;
+  background: linear-gradient(135deg, #1e0a3c 0%, #3b0764 40%, #7c1d6f 100%);
+  display: flex; align-items: center; padding: 0 40px;
+  border: 1px solid rgba(124,58,237,0.3);
+  transition: transform 0.3s;
+}
+.banner:hover { transform: scale(1.01); }
+.bannerGlow {
+  position: absolute; right: -60px; top: -60px;
+  width: 350px; height: 350px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(219,39,119,0.3) 0%, transparent 70%);
+}
+.bannerContent { position: relative; z-index: 2; }
+.bannerLabel { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #d8b4fe; margin-bottom: 8px; }
+.bannerTitle { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900; margin-bottom: 6px; }
+.bannerSub { font-size: 14px; color: rgba(237,232,245,0.6); }
+.bannerBtn {
+  position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.12); color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px 22px; border-radius: 30px;
+  font-size: 13px; font-weight: 500; backdrop-filter: blur(6px);
+  transition: background 0.2s; font-family: 'Outfit', sans-serif;
+}
+.bannerBtn:hover { background: rgba(255,255,255,0.22); }
+
+@media (max-width: 768px) {
+  .genreBar, .rows { padding-left: 20px; padding-right: 20px; }
+  .banner { margin: 0 20px 40px; height: auto; padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .bannerBtn { position: static; transform: none; }
+}

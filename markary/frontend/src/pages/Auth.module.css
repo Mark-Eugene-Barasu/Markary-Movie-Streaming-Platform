@@ -1,0 +1,58 @@
+.page {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 20px; position: relative;
+}
+.bg {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(124,58,237,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(219,39,119,0.15) 0%, transparent 50%),
+    #060608;
+}
+.card {
+  position: relative; z-index: 1;
+  background: rgba(15,15,20,0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px; padding: 40px;
+  width: 100%; max-width: 420px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+}
+.logo {
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900;
+  background: linear-gradient(135deg, #f0d080, #c9a84c);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 3px; margin-bottom: 24px; display: inline-block;
+}
+.heading { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+.sub { font-size: 14px; color: #7a748a; margin-bottom: 28px; }
+.error {
+  background: rgba(219,39,119,0.15); border: 1px solid rgba(219,39,119,0.3);
+  color: #fce7f3; font-size: 13px; padding: 10px 14px;
+  border-radius: 8px; margin-bottom: 16px;
+}
+.form { display: flex; flex-direction: column; gap: 6px; }
+.label { font-size: 12px; font-weight: 500; color: #7a748a; letter-spacing: 0.05em; margin-top: 10px; }
+.input {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 12px 14px; color: #ede8f5;
+  font-size: 14px; font-family: 'Outfit', sans-serif;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+.input:focus { border-color: rgba(124,58,237,0.6); background: rgba(124,58,237,0.05); }
+.input::placeholder { color: #4a4460; }
+.btn {
+  margin-top: 20px; padding: 14px;
+  background: linear-gradient(135deg, #f0d080, #c9a84c);
+  color: #1a0e00; border: none; border-radius: 10px;
+  font-size: 15px; font-weight: 600;
+  box-shadow: 0 6px 24px rgba(201,168,76,0.3);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  font-family: 'Outfit', sans-serif;
+}
+.btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201,168,76,0.45); }
+.btn:disabled { opacity: 0.6; }
+.footer { font-size: 13px; color: #7a748a; text-align: center; margin-top: 20px; }
+.linkText { color: #c9a84c; font-weight: 500; transition: color 0.2s; }
+.linkText:hover { color: #f0d080; }
