@@ -8,6 +8,7 @@
     "dev:frontend": "npm start   --prefix frontend",
     "seed":         "node backend/seed.js",
     "build":        "npm run build --prefix frontend",
-    "start":        "npm start --prefix backend"
+    "start":        "npm start --prefix backend",
+    "lint": "eslint backend/**/*.js frontend/src/**/*.js"
   }
 }

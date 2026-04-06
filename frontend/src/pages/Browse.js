@@ -18,7 +18,7 @@ export default function Browse() {
         const res = await api.get(`/content/search?q=${encodeURIComponent(query)}`);
         setItems(res.data);
       } else {
-        const g = genre !== 'All' ? `&genre=${genre}` : '';
+        const g = genre !== 'All' && GENRES.includes(genre) ? `&genre=${genre}` : '';
         const res = await api.get(`/content/all?limit=24${g}`);
         setItems(res.data.items || []);
       }

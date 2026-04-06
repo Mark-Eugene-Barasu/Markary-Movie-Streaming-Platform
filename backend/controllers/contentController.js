@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Content = require('../models/Content');
 
 // GET /api/content/featured
@@ -24,15 +25,20 @@ exports.getTrending = async (_req, res) => {
 exports.getAll = async (req, res) => {
   try {
     const { genre, type, page = 1, limit = 20 } = req.query;
+    const pageNum = Number(page);
+    const limitNum = Number(limit);
+    if (isNaN(pageNum) || pageNum < 1 || isNaN(limitNum) || limitNum < 1 || limitNum > 100) {
+      return res.status(400).json({ error: 'Invalid page or limit parameters' });
+    }
     const filter = {};
     if (genre) filter.genres = genre;
     if (type)  filter.type  = type;
 
-    const skip  = (Number(page) - 1) * Number(limit);
+    const skip  = (pageNum - 1) * limitNum;
     const total = await Content.countDocuments(filter);
-    const items = await Content.find(filter).skip(skip).limit(Number(limit)).lean();
+    const items = await Content.find(filter).skip(skip).limit(limitNum).lean();
 
-    res.json({ total, page: Number(page), pages: Math.ceil(total / limit), items });
+    res.json({ total, page: pageNum, pages: Math.ceil(total / limitNum), items });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -56,6 +62,9 @@ exports.search = async (req, res) => {
 // GET /api/content/:id
 exports.getOne = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid content ID.' });
+    }
     const item = await Content.findById(req.params.id).lean();
     if (!item) return res.status(404).json({ error: 'Content not found.' });
     res.json(item);

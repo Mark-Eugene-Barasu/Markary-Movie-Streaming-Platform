@@ -4,6 +4,8 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || '/api',
 });
 
+let redirecting = false;
+
 // Attach JWT on every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('markary_token');
@@ -15,7 +17,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    if (err.response?.status === 401 && !redirecting) {
+      redirecting = true;
       localStorage.removeItem('markary_token');
       window.location.href = '/login';
     }

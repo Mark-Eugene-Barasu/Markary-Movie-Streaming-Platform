@@ -1,4 +1,10 @@
 require('dotenv').config();
+
+if (!process.env.MONGO_URI || !process.env.JWT_SECRET) {
+  console.error('❌ Missing required environment variables: MONGO_URI or JWT_SECRET');
+  process.exit(1);
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');

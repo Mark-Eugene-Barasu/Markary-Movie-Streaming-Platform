@@ -90,7 +90,7 @@ async function seed() {
     // Create a demo user
     await User.deleteMany({ email: 'demo@markary.com' });
     await User.create({ name: 'Demo User', email: 'demo@markary.com', password: 'demo1234' });
-    console.log('✅  Demo user created — email: demo@markary.com  password: demo1234');
+    console.log('✅  Demo user created — email: demo@markary.com');
 
     process.exit(0);
   } catch (err) {
@@ -98,5 +98,7 @@ async function seed() {
     process.exit(1);
   }
 }
+
+seed();
 
 seed();

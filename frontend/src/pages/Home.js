@@ -28,7 +28,6 @@ export default function Home() {
   const [featured,  setFeatured]  = useState(null);
   const [trending,  setTrending]  = useState([]);
   const [picks,     setPicks]     = useState([]);
-  const [activeGenre, setActiveGenre] = useState('All');
   const [loading,   setLoading]   = useState(true);
 
   useEffect(() => {

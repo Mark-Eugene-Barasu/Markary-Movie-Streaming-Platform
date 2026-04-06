@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const contentSchema = new mongoose.Schema(
   {
-    title:       { type: String, required: true, trim: true },
-    description: { type: String, required: true },
+    title:       { type: String, required: true, trim: true, minlength: 1, maxlength: 200 },
+    description: { type: String, required: true, minlength: 10, maxlength: 1000 },
     type:        { type: String, enum: ['movie', 'series'], required: true },
     genres:      [{ type: String }],
     releaseYear: { type: Number },

@@ -17,7 +17,7 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = () => { logout(); navigate('/login'); };
-  const initials = user?.name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2) || 'ME';
+  const initials = user?.name && user.name.trim() ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2) : 'ME';
 
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>

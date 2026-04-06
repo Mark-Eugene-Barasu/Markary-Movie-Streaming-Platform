@@ -14,15 +14,21 @@ export default function Watch() {
   const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     api.get(`/content/${id}`)
       .then(res => setItem(res.data))
-      .catch(() => setItem(null))
+      .catch(err => {
+        setError(err.response?.data?.error || 'Failed to load content');
+        setItem(null);
+      })
       .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) return <div className={styles.loader}>Loading…</div>;
+
+  if (error) return <div className={styles.error}>Error: {error}</div>;
 
   // Mock player if no videoUrl
   const bg = item?.backdrop || GRADIENTS[0];

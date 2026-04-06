@@ -25,7 +25,14 @@ export default function ContentCard({ item, index = 0 }) {
     try {
       await api.post(`/user/mylist/${item._id}`);
       setAdded(true);
-    } catch { /* already added */ setAdded(true); }
+    } catch (err) {
+      if (err.response?.status === 409) {
+        setAdded(true); // already added
+      } else {
+        // show error, but since no UI, perhaps alert or ignore
+        console.error('Failed to add to list:', err);
+      }
+    }
   };
 
   const tagColors = {

@@ -1,0 +1,24 @@
+name: Security Scan
+on: [push, pull_request]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies (backend)
+        run: cd backend && npm ci
+      - name: Install dependencies (frontend)
+        run: cd frontend && npm ci
+      - name: Run npm audit (backend)
+        run: cd backend && npm audit --audit-level=moderate
+      - name: Run npm audit (frontend)
+        run: cd frontend && npm audit --audit-level=moderate
+      - name: Snyk scan (optional, requires SNYK_TOKEN secret)
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=backend/package.json
